@@ -1,0 +1,17 @@
+{
+  "name": "server-files",
+  "version": "1.0.0",
+  "description": "server-files",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "find-process": "^1.1.0",
+    "handlebars": "^4.0.11",
+    "javascript-obfuscator": "^0.14.3",
+    "opn": "^5.2.0"
+  }
+}

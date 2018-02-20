@@ -1,29 +1,12 @@
 const crypto = require('crypto')
-const fs = require('fs')
-const handlebars = require('handlebars')
 const base64url = require('base64url')
-const jso = require('javascript-obfuscator')
 const low = require('lowdb')
 const FileAsync = require('lowdb/adapters/FileAsync')
 const adapter = new FileAsync(`${__dirname}/db.json`)
 const express = require('express')
 const logger = require('morgan')
 const app = express()
-const package = require('./package')
 const config = require('../../conf')
-
-console.log(config)
-
-fs.unlink(`${__dirname}/../../client_packages/.listcache`, (err) => {
-  if (err) return console.error(err)
-  fs.readFile(`${__dirname}/client/index.js`, (err, data) => {
-    if (err) return console.error(err)
-    data = handlebars.compile(data.toString())(config)
-    fs.writeFile(`${__dirname}/../../client_packages/index.js`, jso.obfuscate(data, package.obfuscator), (err) => {
-      if (err) return console.error(err)
-    })
-  })
-})
 
 low(adapter).then(db => {
   db.defaults({ players: [] }).write()
