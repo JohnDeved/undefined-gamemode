@@ -4,5 +4,7 @@
 	"gamemode" : "freeroam", 
 	"stream-distance" : 500.0,
 	"announce" : false,
+	"host": "127.0.0.1",
+	"express": 22108,
 	"port": 22005
 }

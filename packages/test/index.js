@@ -1,9 +1,30 @@
 const crypto = require('crypto')
+const fs = require('fs')
+const handlebars = require('handlebars')
 const base64url = require('base64url')
+const jso = require('javascript-obfuscator')
 const low = require('lowdb')
 const FileAsync = require('lowdb/adapters/FileAsync')
+const adapter = new FileAsync(`${__dirname}/db.json`)
+const express = require('express')
+const logger = require('morgan')
+const app = express()
+const package = require('./package')
+const config = require('../../conf')
 
-const adapter = new FileAsync('./db.json')
+console.log(config)
+
+fs.unlink(`${__dirname}/../../client_packages/.listcache`, (err) => {
+  if (err) return console.error(err)
+  fs.readFile(`${__dirname}/client/index.js`, (err, data) => {
+    if (err) return console.error(err)
+    data = handlebars.compile(data.toString())(config)
+    fs.writeFile(`${__dirname}/../../client_packages/index.js`, jso.obfuscate(data, package.obfuscator), (err) => {
+      if (err) return console.error(err)
+    })
+  })
+})
+
 low(adapter).then(db => {
   db.defaults({ players: [] }).write()
 
@@ -12,16 +33,16 @@ low(adapter).then(db => {
   })
 
   mp.events.addCommand('setSpawn', player => {
-    let playerInfo = db.get('players').find({ sid: player.getVariable('sid') }).value()
+    let playerInfo = db.get('players').find({ sid: player.sid }).value()
     playerInfo.spawn = player.position
 
-    db.get('players').find({ sid: player.getVariable('sid') }).set(playerInfo).write().then(() => {
+    db.get('players').find({ sid: player.sid }).set(playerInfo).write().then(() => {
       player.outputChatBox('your spawn has been set here')
     })
   })
 
   mp.events.add('playerDeath', player => {
-    let playerInfo = db.get('players').find({ sid: player.getVariable('sid') }).value()
+    let playerInfo = db.get('players').find({ sid: player.sid }).value()
 
     player.spawn(playerInfo.spawn || { x: 51.99728012084961, y: -49.256221771240234, z: 69.3716049194336 })
     player.health = 100
@@ -36,7 +57,7 @@ low(adapter).then(db => {
       playerInfo.lastIp = player.ip
 
       db.get('players').find({ scid: player.socialClub }).set(playerInfo).write().then(() => {
-        player.setVariable('sid', playerInfo.sid)
+        player.sid = playerInfo.sid
         player.call('showGui', [playerInfo.sid])
       })
     } else {
@@ -52,7 +73,7 @@ low(adapter).then(db => {
         firstIp: player.ip,
         lastIp: player.ip
       }).write().then(() => {
-        player.setVariable('sid', sid)
+        player.sid = playerInfo.sid
         player.call('showGui', [sid])
       })
     }
@@ -67,15 +88,13 @@ low(adapter).then(db => {
     }
   })
 
-  var express = require('express')
-  var app = express()
-
+  app.use(logger('dev'))
   app.get('/:sid', (req, res) => {
     let playerInfo = db.get('players').find({ sid: req.params.sid }).value()
     if (playerInfo) {
-      res.send(playerInfo)
+      res.sendFile(`${__dirname}/views/test.html`)
     }
   })
 
-  app.listen(3000)
+  app.listen(config.express)
 })

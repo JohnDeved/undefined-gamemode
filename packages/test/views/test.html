@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/vuetify/dist/vuetify.min.css">
+  <style>
+    .application.theme--light {
+        background: transparent;
+    }
+    .application.theme--dark {
+        background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <v-app id="inspire" dark>
+      <v-content>
+        <div>
+          <v-btn color="success" @click="alert = !alert">Success</v-btn>
+          <v-btn color="error">Error</v-btn>
+          <v-btn color="warning">Warning</v-btn>
+          <v-btn color="info">Info</v-btn>
+        </div>
+        <div>
+            <v-alert type="success" :value="alert" transition="slide-x-reverse-transition">
+              This is a success alert.
+            </v-alert>
+          </div>
+      </v-content>
+    </v-app>
+  </div>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: () => ({
+        alert: false
+      })
+    })
+  </script>
+</body>
+</html>
