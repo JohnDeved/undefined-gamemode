@@ -63,11 +63,13 @@
           audio.play()
 
           let id = Math.random().toString(36).substring(2)
-          let data = {type: type, value: true, id: id}
+          let data = {type: type, value: true, id: id, active: true}
           this.alerts.push(data)
           setTimeout(() => {
             $(`.${id}`).slideUp('normal', () => {
-              // this.alerts.splice(this.alerts.indexOf(data), 1)
+              this.alerts[this.alerts.indexOf(data)].active = false
+              if (this.alerts.filter(e => e.active).length === 0)
+                this.alerts = []
               console.log(this.alerts.length)
             })
           }, time)
