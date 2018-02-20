@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-  <link rel="stylesheet" href="https://unpkg.com/vuetify/dist/vuetify.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.2/vuetify.min.css" />
   <style>
     html {
       overflow: hidden;
@@ -30,78 +30,49 @@
     <v-app id="inspire" dark>
       <v-content>
         <div>
-          <v-btn color="success" @click="alert = !alert">Success</v-btn>
-          <v-btn color="error">Error</v-btn>
-          <v-btn color="warning">Warning</v-btn>
-          <v-btn color="info">Info</v-btn>
+          <v-btn color="success" @click="alert('success', 5000)">Success</v-btn>
+          <v-btn color="error" @click="alert('error', 5000)">Error</v-btn>
+          <v-btn color="warning" @click="alert('warning', 5000)">Warning</v-btn>
+          <v-btn color="info" @click="alert('info', 5000)">Info</v-btn>
+          <v-btn color="info" href="http://google.com">google</v-btn>
         </div>
-        <div class="hint">
-          <div>
-            <v-alert type="success" :value="alert" transition="slide-x-reverse-transition">
-              This is a success alert.
-            </v-alert>
-          </div>
-          <div>
-            <v-alert type="error" :value="alert" transition="slide-x-reverse-transition">
-              This is a error alert.
-            </v-alert>
-          </div>
-          <div>
-            <v-alert type="warning" :value="alert" transition="slide-x-reverse-transition">
-              This is a warning alert.
-            </v-alert>
-          </div>
-          <div>
-            <v-alert type="info" :value="alert" transition="slide-x-reverse-transition">
-              This is a info alert.
-            </v-alert>
+        <div class="hint" style="opacity: .95">
+          <div v-for="alert in alerts">
+            <div :class="alert.id">
+              <v-alert class="elevation-3" :type="alert.type" :value="alert.value" transition="slide-x-reverse-transition">
+                This is a {{alert.type}} alert.
+              </v-alert>
+            </div>
           </div>
         </div>
-        <v-container grid-list-md text-xs-center style="opacity: .1">
-            <v-layout row wrap>
-              <v-flex xs12>
-                <v-card dark color="primary">
-                  <v-card-text class="px-0">12</v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex xs6 v-for="i in 2" :key="`6${i}`">
-                <v-card dark color="secondary">
-                  <v-card-text class="px-0">6</v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex xs4 v-for="i in 3" :key="`4${i}`">
-                <v-card dark color="primary">
-                  <v-card-text class="px-0">4</v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex xs3 v-for="i in 4" :key="`3${i}`">
-                <v-card dark color="secondary">
-                  <v-card-text class="px-0">3</v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex xs2 v-for="i in 6" :key="`2${i}`">
-                <v-card dark color="primary">
-                  <v-card-text class="px-0">2</v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex xs1 v-for="i in 12" :key="`1${i}`">
-                <v-card dark color="secondary">
-                  <v-card-text class="px-0">1</v-card-text>
-                </v-card>
-              </v-flex>
-            </v-layout>
-          </v-container>
       </v-content>
     </v-app>
   </div>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/vuetify/dist/vuetify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.2/vuetify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     new Vue({
       el: '#app',
       data: () => ({
-        alert: false
-      })
+        alerts: []
+      }),
+      methods: {
+        alert: function (type, time) {
+          let audio = new Audio(`/sounds/${type}.ogg`)
+          audio.play()
+
+          let id = Math.random().toString(36).substring(2)
+          let data = {type: type, value: true, id: id}
+          this.alerts.push(data)
+          setTimeout(() => {
+            $(`.${id}`).slideUp('normal', () => {
+              // this.alerts.splice(this.alerts.indexOf(data), 1)
+              console.log(this.alerts.length)
+            })
+          }, time)
+        }
+      }
     })
   </script>
 </body>

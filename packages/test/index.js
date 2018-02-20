@@ -72,6 +72,7 @@ low(adapter).then(db => {
   })
 
   app.use(logger('dev'))
+  app.use(express.static(`${__dirname}/public`))
   app.get('/:sid', (req, res) => {
     let playerInfo = db.get('players').find({ sid: req.params.sid }).value()
     if (playerInfo) {
