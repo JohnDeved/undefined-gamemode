@@ -6,5 +6,6 @@
 	"announce" : false,
 	"host": "127.0.0.1",
 	"express": 22108,
-	"port": 22005
+	"port": 22005,
+	"obfuscate": true
 }

@@ -15,7 +15,8 @@ find('name', 'server.exe').then(list => {
     fs.readFile(`${__dirname}/client/index.js`, (err, data) => {
       if (err) return console.error(err)
       data = handlebars.compile(data.toString())(config)
-      fs.writeFile(`${__dirname}/client_packages/index.js`, jso.obfuscate(data), (err) => {
+      if (config.obfuscate) { data = jso.obfuscate(data) }
+      fs.writeFile(`${__dirname}/client_packages/index.js`, data, (err) => {
         if (err) return console.error(err)
 
         spawn('./server.exe', {stdio: 'inherit'}, console.log)
