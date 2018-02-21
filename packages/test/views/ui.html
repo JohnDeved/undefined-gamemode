@@ -10,6 +10,7 @@
   <style>
     html {
       overflow: hidden;
+      opacity: .95;
     }
     .application.theme--light {
         background: transparent;
@@ -23,11 +24,20 @@
       right: 0;
       top: 0;
       z-index: 1000;
-      opacity: .95; 
       padding-right: 10px;
     }
     .alert {
       border-radius: 5px;
+    }
+    .fullscreen {
+      height: 100vh;
+      width: 100vw;
+      left: 0;
+      top: 0;
+      margin: 0;
+    }
+    .darken {
+      background-color: rgba(66, 66, 66, 0.5)
     }
   </style>
 </head>
@@ -35,15 +45,6 @@
   <div id="app">
     <v-app id="inspire" dark>
       <v-content>
-        <div>
-          <v-btn color="success" @click="alert({type: 'success'})">Success</v-btn>
-          <v-btn color="error" @click="alert({type: 'error'})">Error</v-btn>
-          <v-btn color="warning" @click="alert({type: 'warning'})">Warning</v-btn>
-          <v-btn color="info" @click="alert()">Info</v-btn>
-          <v-btn color="info" @click="alert({icon: 'new_releases', color: 'teal'})">Custom</v-btn>
-          <v-btn color="info" @click="alert({icon: 'lock', color: 'orange', text: 'you have locked your car!'})">Custom</v-btn>
-          <v-btn color="info" href="http://google.com">google</v-btn>
-        </div>
         <div class="alerts">
           <div v-for="alert in alerts">
             <div :id="alert.id">
@@ -53,22 +54,53 @@
             </div>
           </div>
         </div>
+        <transition name="fade-transition" mode="out-in">
+          <router-view></router-view>
+        </transition>
       </v-content>
     </v-app>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.2/vuetify.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script type="text/x-template" id="buttons-template">
+    <v-layout class="fullscreen darken" column align-center justify-center>
+      <v-card class="white--text card--medium ma-3 pa-3 elevation-5">
+        <v-btn color="success" @click="vue.alert({type: 'success'})">Success</v-btn>
+        <v-btn color="error" @click="vue.alert({type: 'error'})">Error</v-btn>
+        <v-btn color="warning" @click="vue.alert({type: 'warning'})">Warning</v-btn>
+        <v-btn color="info" @click="vue.alert()">Info</v-btn>
+        <v-btn color="info" @click="vue.alert({icon: 'new_releases', color: 'teal'})">Custom</v-btn>
+        <v-btn color="info" @click="vue.alert({icon: 'lock', color: 'orange', text: 'you have locked your car!'})">Custom</v-btn>
+        <v-btn color="info" href="http://google.com">google</v-btn>
+      </v-card>
+    </v-layout>
+    <div>
+
+    </div>
+  </script>
+
   <script>
-    window.vue = new Vue({
+    Vue.use(VueRouter)
+
+    const router = new VueRouter({
+      routes: [
+        { path: '/buttons', component: { template: '#buttons-template'} }
+      ]
+    })
+
+    const app = new Vue({
       el: '#app',
+      router,
       data: () => ({
         alerts: []
       }),
       methods: {
         alert: function (data = {}) {
           class Alert {
-            constructor(data) {
+            constructor (data) {
               this.type = data.type || 'info'
               this.time = data.time || 10000
               this.text = data.text || `i am a placeholder text for an ${this.type} alert.`
@@ -79,24 +111,25 @@
               this.id = Math.random().toString(36).substring(2)
             }
           }
-          
+
           data = new Alert(data)
           this.alerts.push(data)
 
           let audio = new Audio(`/sounds/${data.type}.ogg`)
           audio.play()
-          
+
           setTimeout(() => {
             $(`#${data.id}`).slideUp('normal', () => {
               this.alerts[this.alerts.indexOf(data)].active = false
-              if (this.alerts.filter(e => e.active).length === 0)
-                this.alerts = []
+              if (this.alerts.filter(e => e.active).length === 0) { this.alerts = [] }
               console.log(this.alerts.length)
             })
           }, data.time)
         }
       }
     })
+
+    window.vue = app
   </script>
 </body>
 </html>

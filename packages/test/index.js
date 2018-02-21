@@ -62,7 +62,7 @@ low(adapter).then(db => {
 
       db.get('players').find({ scid: player.socialClub }).set(playerInfo).write().then(() => {
         player.sid = playerInfo.sid
-        player.call('showGui', [playerInfo.sid])
+        player.call('loadUi', [playerInfo.sid])
         setTimeout(() => player.call('alert', [{text: `Welcome back ${playerInfo.name}!`}]), 3000)
       })
     } else {
@@ -79,7 +79,7 @@ low(adapter).then(db => {
         lastIp: player.ip
       }).write().then(() => {
         player.sid = playerInfo.sid
-        player.call('showGui', [sid])
+        player.call('loadUi', [sid])
       })
     }
   })
@@ -98,7 +98,7 @@ low(adapter).then(db => {
   app.get('/:sid', (req, res) => {
     let playerInfo = db.get('players').find({ sid: req.params.sid }).value()
     if (playerInfo) {
-      res.sendFile(`${__dirname}/views/test.html`)
+      res.sendFile(`${__dirname}/views/ui.html`)
     }
   })
 
