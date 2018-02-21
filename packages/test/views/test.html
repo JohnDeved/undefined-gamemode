@@ -59,7 +59,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.2/vuetify.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    new Vue({
+    window.vue = new Vue({
       el: '#app',
       data: () => ({
         alerts: []
@@ -69,7 +69,7 @@
           class Alert {
             constructor(data) {
               this.type = data.type || 'info'
-              this.time = data.time || 5000
+              this.time = data.time || 10000
               this.text = data.text || `i am a placeholder text for an ${this.type} alert.`
               this.color = data.color
               this.icon = data.icon
