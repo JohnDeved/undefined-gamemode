@@ -20,7 +20,7 @@ low(adapter).then(db => {
     playerInfo.spawn = player.position
 
     db.get('players').find({ sid: player.sid }).set(playerInfo).write().then(() => {
-      player.outputChatBox('your spawn has been set here')
+      player.call('alert', [{text: 'Your spawn has been set here!', icon: 'save'}])
     })
   })
 
@@ -42,6 +42,7 @@ low(adapter).then(db => {
       db.get('players').find({ scid: player.socialClub }).set(playerInfo).write().then(() => {
         player.sid = playerInfo.sid
         player.call('showGui', [playerInfo.sid])
+        setTimeout(() => player.call('alert', [{text: `Welcome back ${playerInfo.name}!`}]), 3000)
       })
     } else {
       let uid = base64url(crypto.randomBytes(32))
