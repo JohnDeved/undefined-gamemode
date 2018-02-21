@@ -6,7 +6,6 @@ const adapter = new FileAsync(`${__dirname}/db.json`)
 const express = require('express')
 const logger = require('morgan')
 const app = express()
-const config = require('../../conf')
 
 low(adapter).then(db => {
   db.defaults({ players: [] }).write()
@@ -100,5 +99,5 @@ low(adapter).then(db => {
     }
   })
 
-  app.listen(config.express)
+  app.listen(mp.config.express)
 })
