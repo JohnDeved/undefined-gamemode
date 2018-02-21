@@ -13,15 +13,24 @@ const app = express()
 low(adapter).then(db => {
   db.defaults({ players: [] }).write()
 
-  mp.events.addCommand('car', (player, car = 'Dominator') => {
-    let veh = mp.vehicles.new(mp.joaat(car), player.position)
-    if (veh) {
-      player.call('alert', [{text: `Vehicle ${car} has been spawned!`, icon: 'fa-car', type: 'success'}])
-      player.putIntoVehicle(veh, -1)
+  const spawnCar = (player, car = 'Dominator') => {
+    if (player.vehicle) {
+      player.vehicle.destroy()
+      setTimeout(() => {
+        spawnCar(player, car)
+      }, 50)
     } else {
-      player.call('alert', [{text: `Couldnt spawn "${car}"!`, icon: 'fa-car', type: 'error'}])
+      let veh = mp.vehicles.new(mp.joaat(car), player.position)
+      if (veh) {
+        player.call('alert', [{text: `Vehicle ${car} has been spawned!`, icon: 'fa-car', type: 'success'}])
+        player.putIntoVehicle(veh, -1)
+      } else {
+        player.call('alert', [{text: `Couldnt spawn "${car}"!`, icon: 'fa-car', type: 'error'}])
+      }
     }
-  })
+  }
+  mp.events.add('spawnCar', spawnCar)
+  mp.events.addCommand('car', spawnCar)
 
   mp.events.addCommand('gun', (player, gun = 'weapon_carbinerifle') => {
     player.giveWeapon(mp.joaat(gun), 1000)
