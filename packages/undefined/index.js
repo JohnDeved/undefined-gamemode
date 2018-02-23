@@ -13,7 +13,7 @@ const adapter = new FileAsync(`${__dirname}/db.json`)
 // })
 
 lowdb(adapter).then(db => {
-  const low = require('./bin/database.js')(db)
-  require('./bin/events.js')(low)
-  require('./bin/express.js')(low)
+  mp.low = require('./bin/database.js')(db)
+  require('./bin/events.js')()
+  require('./bin/express.js')()
 })
