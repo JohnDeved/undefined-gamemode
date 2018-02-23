@@ -24,10 +24,10 @@ find('name', 'server.exe').then(list => {
 
         spawn('./server.exe', {stdio: 'inherit'}, console.log)
 
-        ipc.config.id = 'host'
-        ipc.serve()
-        ipc.server.start()
-        ipc.server.on('spawnMessage', handleMessage)
+        // ipc.config.id = 'host'
+        // ipc.serve()
+        // ipc.server.start()
+        // ipc.server.on('spawnMessage', handleMessage)
       })
     })
   })
