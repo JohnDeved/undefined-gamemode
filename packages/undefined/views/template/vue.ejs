@@ -32,13 +32,77 @@ const router = new VueRouter({
   }]
 })
 
+Vue.component('speedometer', {
+  template: '<canvas id="gauge" class="canvas-gauges"></canvas>',
+  props: {
+    value: Number,
+    options: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  data () {
+    return {}
+  },
+  mounted () {
+    if (this.value) this.options.value = this.value
+    this.options.renderTo = this.$el
+    window.speedometer = new RadialGauge(this.options).draw()
+  }
+})
+
 const app = new Vue({
   el: '#app',
   router,
   data: () => ({
     alerts: [],
     speed: 0,
-    isDriving: false
+    isDriving: false,
+    options: {
+      renderTo: 'gauge',
+      width: 300,
+      height: 300,
+      units: "km/h",
+      minValue: 0,
+      maxValue: 220,
+      majorTicks: [
+          "0",
+          "20",
+          "40",
+          "60",
+          "80",
+          "100",
+          "120",
+          "140",
+          "160",
+          "180",
+          "200",
+          "220"
+      ],
+      minorTicks: 2,
+      strokeTicks: true,
+      highlights: [
+          {
+              "from": 160,
+              "to": 220,
+              "color": "rgba(200, 50, 50, .75)"
+          }
+      ],
+      colorPlate: "rgba(50, 50, 50, 0.7)",
+      colorUnits: 'white',
+      colorNumbers: 'white',
+      colorMajorTicks: 'white',
+      colorMinorTicks: 'rgba(255, 255, 255, 0.7)',
+      borderShadowWidth: 0,
+      borders: false,
+      valueBox: false,
+      needleType: "arrow",
+      needleWidth: 2,
+      needleCircleSize: 7,
+      needleCircleOuter: true,
+      needleCircleInner: false,
+      animationDuration: 100
+    }
   }),
   methods: {
     alert: function(data = {}) {
