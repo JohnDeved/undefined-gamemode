@@ -55,3 +55,14 @@ html {
   background-color: transparent;
   color: #fff;
 }
+
+.speedometer {
+  background: rgba(10, 10, 10, 0.7);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  border-radius: 5px;
+  width: 200px;
+  text-align: right;
+}

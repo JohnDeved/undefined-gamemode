@@ -29,8 +29,13 @@ mp.keys.bind(114, true, () => pushRoute('/cars'))
 mp.keys.bind(116, true, () => mp.browser.reload(false))
 
 setInterval(() => {
-  if (mp.players.local.vehicle) {
-    let speed = mp.players.local.vehicle.getSpeed() * 3.6
-    mp.browser.execute(`vue.speed = ${Math.floor(speed)}`)
+  if (mp.browser) {
+    if (mp.players.local.vehicle) {
+      let speed = mp.players.local.vehicle.getSpeed() * 3.6
+      mp.browser.execute(`vue.speed = ${Math.floor(speed)}`)
+      mp.browser.execute(`vue.isDriving = true`)
+    } else {
+      mp.browser.execute(`vue.isDriving = false`)
+    }
   }
 }, 50)
