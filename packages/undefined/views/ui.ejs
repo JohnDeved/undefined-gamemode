@@ -57,6 +57,16 @@
       max-height: 60vh;
       overflow: auto;
     }
+
+    .theme--dark .table {
+      background-color: transparent;
+      color: #fff;
+    }
+
+    .theme--dark .datatable .datatable__actions {
+      background-color: transparent;
+      color: #fff;
+    }
   </style>
 </head>
 
@@ -101,37 +111,50 @@
   </script>
 
   <script type="text/x-template" id="cars-template">
-    <v-layout class="fullscreen darken" row wrap align-center justify-center>
-      <v-flex sm2>
-        <v-select label="Select Car" :items="cars" item-text="name" item-value="name" max-height="auto" v-model="selectedCar" autocomplete chips>
-          <template slot="item" slot-scope="data">
-            <v-list-tile-content>
-              <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-              <v-list-tile-sub-title v-html="data.item.cat"></v-list-tile-sub-title>
-            </v-list-tile-content>
-          </template>
-        </v-select>
-      </v-flex>
-      <v-btn color="green" outline ripple @click="mp.trigger('server_spawnCar', selectedCar)">
-        <v-icon>done</v-icon>
-      </v-btn>
-      <!-- <v-list two-line subheader>
-        <v-list-tile avatar v-for="car in cars" :key="car.name" @click="">
-          <v-list-tile-content>
-            <v-list-tile-title>{{ car.name }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ car.hash }}</v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-btn color="green" outline icon ripple @click="mp.trigger('server_spawnCar', car.name)">
-              <v-icon>done</v-icon>
+    <v-layout class="fullscreen darken" column align-center>
+      <div>
+        <v-text-field
+          style="width: 40vw"
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+          v-model="search"
+        ></v-text-field>
+      </div>
+      <v-data-table
+        class="elevation-0"
+        style="width: 40vw"
+        :rows-per-page-items="[15]"
+        :headers="headers"
+        :items="cars"
+        :search="search"
+      >
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item.displayName }}</td>
+          <td>{{ props.item.manufacturerName }}</td>
+          <td>{{ Math.floor(props.item.maxSpeed * 3.6) }} KM/H</td>
+          <td>{{ props.item.vehicleClass }}</td>
+          <td class="justify-center layout px-0">
+            <v-btn icon class="mx-0" @click="mp.trigger('server_spawnCar', props.item.name)">
+              <v-icon color="green">done</v-icon>
             </v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list> -->
+          </td>
+        </template>
+        <v-alert slot="no-results" :value="true" color="error" icon="warning">
+          Your search for "{{ search }}" found no results.
+        </v-alert>
+      </v-data-table>
     </v-layout>
   </script>
 
   <script>
+    const vehicles = <% include json/vehicleInfo.nolist.json %>
+    const vehiclesArray = []
+    for (var key in vehicles) {
+      vehiclesArray.push(vehicles[key])
+    }
+
     Vue.use(VueRouter)
 
     const router = new VueRouter({
@@ -146,21 +169,19 @@
         component: {
           template: '#cars-template',
           data: () => ({
-            cars: [{
-              name: 'Dominator',
-              cat: 'Muscle',
-              hash: '0x04CE68AC'
-            },
-            {
-              name: 'Tyrus',
-              cat: 'Super',
-              hash: '0x7B406EFB'
-            },
-            {
-              name: 'Police3',
-              cat: 'Emergency',
-              hash: '0x71FA16EA'
-            }],
+            search: '',
+            headers: [
+              {
+                text: 'Name',
+                align: 'left',
+                value: 'displayName'
+              },
+              { text: 'Manufacturer', value: 'manufacturerName' },
+              { text: 'Max Speed', value: 'maxSpeed' },
+              { text: 'Class', value: 'vehicleClass' },
+              { text: 'Action', value: 'name', sortable: false }
+            ],
+            cars: vehiclesArray,
             selectedCar: null
           })
         }

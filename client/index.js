@@ -27,3 +27,10 @@ mp.events.add('server_spawnCar', car => {
 mp.keys.bind(113, true, () => pushRoute('/buttons'))
 mp.keys.bind(114, true, () => pushRoute('/cars'))
 mp.keys.bind(116, true, () => mp.browser.reload(false))
+
+setInterval(() => {
+  if (mp.players.local.vehicle) {
+    let speed = mp.players.local.vehicle.getSpeed() * 3.6
+    mp.browser.execute(`vue.speed = ${Math.floor(speed)}`)
+  }
+}, 50)
