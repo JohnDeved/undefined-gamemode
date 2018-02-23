@@ -1,4 +1,5 @@
 const crypto = require('crypto')
+const ipc = require('node-ipc')
 const base64url = require('base64url')
 const low = require('lowdb')
 const FileAsync = require('lowdb/adapters/FileAsync')
@@ -9,6 +10,14 @@ const adapter = new FileAsync(`${__dirname}/db.json`)
 const express = require('express')
 const logger = require('morgan')
 const app = express()
+
+ipc.config.id = 'spawn'
+ipc.connectTo('host', ipc => {
+  const host = ipc.of.host
+  host.on('connect', () => {
+    host.emit('spawnMessage', 'The message we send')
+  })
+})
 
 low(adapter).then(db => {
   db.defaults({ players: [] }).write()

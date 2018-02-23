@@ -1,9 +1,12 @@
 const fs = require('fs')
+const ipc = require('node-ipc')
 const spawn = require('child_process').spawn
 const find = require('find-process')
 const handlebars = require('handlebars')
 const jso = require('javascript-obfuscator')
 const config = require('./conf')
+
+const handleMessage = msg => console.log(msg)
 
 find('name', 'server.exe').then(list => {
   list.forEach(p => {
@@ -20,6 +23,11 @@ find('name', 'server.exe').then(list => {
         if (err) return console.error(err)
 
         spawn('./server.exe', {stdio: 'inherit'}, console.log)
+
+        ipc.config.id = 'host'
+        ipc.serve()
+        ipc.server.start()
+        ipc.server.on('spawnMessage', handleMessage)
       })
     })
   })
