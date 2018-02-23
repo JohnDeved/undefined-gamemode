@@ -1,0 +1,77 @@
+<script>
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: [{
+    path: '/buttons',
+    component: {
+      template: '#buttons-template'
+    }
+  }, 
+  {
+    path: '/cars',
+    component: {
+      template: '#cars-template',
+      data: () => ({
+        search: '',
+        headers: [
+          {
+            text: 'Name',
+            align: 'left',
+            value: 'displayName'
+          },
+          { text: 'Manufacturer', value: 'manufacturerName' },
+          { text: 'Max Speed', value: 'maxSpeed' },
+          { text: 'Class', value: 'vehicleClass' },
+          { text: 'Action', value: 'name', sortable: false }
+        ],
+        cars: vehiclesArray,
+        selectedCar: null
+      })
+    }
+  }]
+})
+
+const app = new Vue({
+  el: '#app',
+  router,
+  data: () => ({
+    alerts: [],
+    speed: 0
+  }),
+  methods: {
+    alert: function(data = {}) {
+      class Alert {
+        constructor(data) {
+          this.type = data.type || 'info'
+          this.time = data.time || 10000
+          this.text = data.text || `i am a placeholder text for an ${this.type} alert.`
+          this.color = data.color
+          this.icon = data.icon
+          this.value = true
+          this.active = true
+          this.id = Math.random().toString(36).substring(2)
+        }
+      }
+
+      data = new Alert(data)
+      this.alerts.push(data)
+
+      let audio = new Audio(`/sounds/${data.type}.ogg`)
+      audio.play()
+
+      setTimeout(() => {
+        $(`#${data.id}`).slideUp('normal', () => {
+          this.alerts[this.alerts.indexOf(data)].active = false
+          if (this.alerts.filter(e => e.active).length === 0) {
+            this.alerts = []
+          }
+          console.log(this.alerts.length)
+        })
+      }, data.time)
+    }
+  }
+})
+
+window.vue = app
+</script>

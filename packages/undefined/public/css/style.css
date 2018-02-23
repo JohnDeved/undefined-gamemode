@@ -1,0 +1,57 @@
+html {
+  overflow: hidden;
+  opacity: .95;
+}
+
+.application.theme--light {
+  background: transparent;
+}
+
+.application.theme--dark {
+  background: transparent;
+}
+
+.alerts {
+  width: 25vw;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+  padding-right: 10px;
+}
+
+.alert {
+  border-radius: 5px;
+}
+
+.fullscreen {
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.darken {
+  background-color: rgba(10, 10, 10, 0.7)
+}
+
+.carspawner {
+  min-width: 20vw;
+}
+
+.list {      
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.theme--dark .table {
+  background-color: transparent;
+  color: #fff;
+}
+
+.theme--dark .datatable .datatable__actions {
+  background-color: transparent;
+  color: #fff;
+}

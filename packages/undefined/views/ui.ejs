@@ -8,73 +8,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.3/vuetify.min.css" />
-  <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link> -->
-  <style>
-    html {
-      overflow: hidden;
-      opacity: .95;
-    }
-
-    .application.theme--light {
-      background: transparent;
-    }
-
-    .application.theme--dark {
-      background: transparent;
-    }
-
-    .alerts {
-      width: 25vw;
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: 1000;
-      padding-right: 10px;
-    }
-
-    .alert {
-      border-radius: 5px;
-    }
-
-    .fullscreen {
-      height: 100vh;
-      width: 100vw;
-      left: 0;
-      top: 0;
-      position: absolute;
-      margin: 0;
-    }
-
-    .darken {
-      background-color: rgba(10, 10, 10, 0.7)
-    }
-
-    .carspawner {
-      min-width: 20vw;
-    }
-
-    .list {      
-      max-height: 60vh;
-      overflow: auto;
-    }
-
-    .theme--dark .table {
-      background-color: transparent;
-      color: #fff;
-    }
-
-    .theme--dark .datatable .datatable__actions {
-      background-color: transparent;
-      color: #fff;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
   <div id="app">
     <v-app id="inspire" dark>
       <v-content>
-        {{ speed }} KM/H
+        <h1>{{ speed }} KM/H</h1>
         <div class="alerts">
           <div v-for="alert in alerts">
             <div :id="alert.id">
@@ -95,59 +36,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.3/vuetify.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <script type="text/x-template" id="buttons-template">
-    <v-layout class="fullscreen darken" column align-center justify-center>
-      <div>
-        <v-btn outline color="success" @click="vue.alert({type: 'success'})">Success</v-btn>
-        <v-btn outline color="error" @click="vue.alert({type: 'error'})">Error</v-btn>
-        <v-btn outline color="warning" @click="vue.alert({type: 'warning'})">Warning</v-btn>
-        <v-btn outline color="info" @click="vue.alert()">Info</v-btn>
-        <v-btn outline color="info" @click="vue.alert({icon: 'new_releases', color: 'teal'})">Custom</v-btn>
-        <v-btn outline color="info" @click="vue.alert({icon: 'lock', color: 'orange', text: 'you have locked your car!'})">Custom</v-btn>
-        <v-btn outline color="info" href="https://jsemu3.github.io/gba/launcher.html#pokemonsapphire">pokemon</v-btn>
-        <v-btn outline color="info" href="https://google.com">google</v-btn>
-      </div>
-    </v-layout>
-  </script>
-
-  <script type="text/x-template" id="cars-template">
-    <v-layout class="fullscreen darken" column align-center>
-      <div>
-        <v-text-field
-          style="width: 40vw"
-          append-icon="search"
-          label="Search"
-          single-line
-          hide-details
-          v-model="search"
-        ></v-text-field>
-      </div>
-      <v-data-table
-        class="elevation-0"
-        style="width: 40vw"
-        :rows-per-page-items="[18]"
-        :headers="headers"
-        :items="cars"
-        :search="search"
-      >
-        <template slot="items" slot-scope="props">
-          <td>{{ props.item.displayName }}</td>
-          <td>{{ props.item.manufacturerName }}</td>
-          <td>{{ props.item.maxSpeed }} KM/H</td>
-          <td>{{ props.item.vehicleClass }}</td>
-          <td>
-            <v-btn icon class="mx-0" @click="mp.trigger('server_spawnCar', props.item.name)">
-              <v-icon color="green">done</v-icon>
-            </v-btn>
-          </td>
-        </template>
-        <v-alert slot="no-results" :value="true" color="error" icon="warning">
-          Your search for "{{ search }}" found no results.
-        </v-alert>
-      </v-data-table>
-    </v-layout>
-  </script>
-
   <script>
     const vehicles = <% include json/vehicleInfo.nolist.json %>
     const vehiclesArray = []
@@ -158,83 +46,11 @@
       veh.vehicleClass = vehicleClasses[veh.vehicleClass]
       vehiclesArray.push(veh)
     }
-
-    Vue.use(VueRouter)
-
-    const router = new VueRouter({
-      routes: [{
-        path: '/buttons',
-        component: {
-          template: '#buttons-template'
-        }
-      }, 
-      {
-        path: '/cars',
-        component: {
-          template: '#cars-template',
-          data: () => ({
-            search: '',
-            headers: [
-              {
-                text: 'Name',
-                align: 'left',
-                value: 'displayName'
-              },
-              { text: 'Manufacturer', value: 'manufacturerName' },
-              { text: 'Max Speed', value: 'maxSpeed' },
-              { text: 'Class', value: 'vehicleClass' },
-              { text: 'Action', value: 'name', sortable: false }
-            ],
-            cars: vehiclesArray,
-            selectedCar: null
-          })
-        }
-      }]
-    })
-
-    const app = new Vue({
-      el: '#app',
-      router,
-      data: () => ({
-        alerts: [],
-        speed: 0
-      }),
-      methods: {
-        alert: function(data = {}) {
-          class Alert {
-            constructor(data) {
-              this.type = data.type || 'info'
-              this.time = data.time || 10000
-              this.text = data.text || `i am a placeholder text for an ${this.type} alert.`
-              this.color = data.color
-              this.icon = data.icon
-              this.value = true
-              this.active = true
-              this.id = Math.random().toString(36).substring(2)
-            }
-          }
-
-          data = new Alert(data)
-          this.alerts.push(data)
-
-          let audio = new Audio(`/sounds/${data.type}.ogg`)
-          audio.play()
-
-          setTimeout(() => {
-            $(`#${data.id}`).slideUp('normal', () => {
-              this.alerts[this.alerts.indexOf(data)].active = false
-              if (this.alerts.filter(e => e.active).length === 0) {
-                this.alerts = []
-              }
-              console.log(this.alerts.length)
-            })
-          }, data.time)
-        }
-      }
-    })
-
-    window.vue = app
   </script>
+
+  <% include template/buttons %>
+  <% include template/cars %>
+  <% include template/vue %>  
 </body>
 
 </html>

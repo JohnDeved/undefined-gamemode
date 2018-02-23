@@ -1,0 +1,37 @@
+<script type="text/x-template" id="cars-template">
+  <v-layout class="fullscreen darken" column align-center>
+    <div>
+      <v-text-field
+        style="width: 40vw"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+        v-model="search"
+      ></v-text-field>
+    </div>
+    <v-data-table
+      class="elevation-0"
+      style="width: 40vw"
+      :rows-per-page-items="[18]"
+      :headers="headers"
+      :items="cars"
+      :search="search"
+    >
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.displayName }}</td>
+        <td>{{ props.item.manufacturerName }}</td>
+        <td>{{ props.item.maxSpeed }} KM/H</td>
+        <td>{{ props.item.vehicleClass }}</td>
+        <td>
+          <v-btn icon class="mx-0" @click="mp.trigger('server_spawnCar', props.item.name)">
+            <v-icon color="green">done</v-icon>
+          </v-btn>
+        </td>
+      </template>
+      <v-alert slot="no-results" :value="true" color="error" icon="warning">
+        Your search for "{{ search }}" found no results.
+      </v-alert>
+    </v-data-table>
+  </v-layout>
+</script>
