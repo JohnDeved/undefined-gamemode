@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.2/vuetify.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.3/vuetify.min.css" />
+  <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link> -->
   <style>
     html {
       overflow: hidden;
@@ -40,11 +41,12 @@
       width: 100vw;
       left: 0;
       top: 0;
+      position: absolute;
       margin: 0;
     }
 
     .darken {
-      background-color: rgba(66, 66, 66, 0.5)
+      background-color: rgba(10, 10, 10, 0.7)
     }
 
     .carspawner {
@@ -62,11 +64,12 @@
   <div id="app">
     <v-app id="inspire" dark>
       <v-content>
+        {{ speed }} KM/H
         <div class="alerts">
           <div v-for="alert in alerts">
             <div :id="alert.id">
               <v-alert class="elevation-5" :icon="alert.icon" :color="alert.color" :type="alert.type" :value="alert.value" transition="slide-x-reverse-transition">
-                {{alert.text}}
+                {{ alert.text }}
               </v-alert>
             </div>
           </div>
@@ -79,43 +82,52 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.2/vuetify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.3/vuetify.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script type="text/x-template" id="buttons-template">
     <v-layout class="fullscreen darken" column align-center justify-center>
-      <v-card class="white--text card--medium ma-3 pa-3 elevation-5">
+      <div>
         <v-btn outline color="success" @click="vue.alert({type: 'success'})">Success</v-btn>
         <v-btn outline color="error" @click="vue.alert({type: 'error'})">Error</v-btn>
         <v-btn outline color="warning" @click="vue.alert({type: 'warning'})">Warning</v-btn>
         <v-btn outline color="info" @click="vue.alert()">Info</v-btn>
         <v-btn outline color="info" @click="vue.alert({icon: 'new_releases', color: 'teal'})">Custom</v-btn>
         <v-btn outline color="info" @click="vue.alert({icon: 'lock', color: 'orange', text: 'you have locked your car!'})">Custom</v-btn>
-        <v-btn outline color="info" href="http://google.com">google</v-btn>
-      </v-card>
+        <v-btn outline color="info" href="https://jsemu3.github.io/gba/launcher.html#pokemonsapphire">pokemon</v-btn>
+        <v-btn outline color="info" href="https://google.com">google</v-btn>
+      </div>
     </v-layout>
   </script>
 
   <script type="text/x-template" id="cars-template">
-    <v-layout class="fullscreen darken" column align-center justify-center>
-      <v-card class="carspawner white--text card--medium ma-3 elevation-5">
-        <v-toolbar color="blue">
-          <v-toolbar-title>Car Spawner Boi</v-toolbar-title>
-        </v-toolbar>
-        <v-list two-line subheader>
-          <v-list-tile avatar v-for="car in cars" :key="car.name" @click="">
+    <v-layout class="fullscreen darken" row wrap align-center justify-center>
+      <v-flex sm2>
+        <v-select label="Select Car" :items="cars" item-text="name" item-value="name" max-height="auto" v-model="selectedCar" autocomplete chips>
+          <template slot="item" slot-scope="data">
             <v-list-tile-content>
-              <v-list-tile-title>{{ car.name }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{ car.hash }}</v-list-tile-sub-title>
+              <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="data.item.cat"></v-list-tile-sub-title>
             </v-list-tile-content>
-            <v-list-tile-action>
-              <v-btn color="green" outline icon ripple @click="mp.trigger('server_spawnCar', car.name)">
-                <v-icon>done</v-icon>
-              </v-btn>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list>
-      </v-card>
+          </template>
+        </v-select>
+      </v-flex>
+      <v-btn color="green" outline ripple @click="mp.trigger('server_spawnCar', selectedCar)">
+        <v-icon>done</v-icon>
+      </v-btn>
+      <!-- <v-list two-line subheader>
+        <v-list-tile avatar v-for="car in cars" :key="car.name" @click="">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ car.name }}</v-list-tile-title>
+            <v-list-tile-sub-title>{{ car.hash }}</v-list-tile-sub-title>
+          </v-list-tile-content>
+          <v-list-tile-action>
+            <v-btn color="green" outline icon ripple @click="mp.trigger('server_spawnCar', car.name)">
+              <v-icon>done</v-icon>
+            </v-btn>
+          </v-list-tile-action>
+        </v-list-tile>
+      </v-list> -->
     </v-layout>
   </script>
 
@@ -148,7 +160,8 @@
               name: 'Police3',
               cat: 'Emergency',
               hash: '0x71FA16EA'
-            }]
+            }],
+            selectedCar: null
           })
         }
       }]
@@ -158,7 +171,8 @@
       el: '#app',
       router,
       data: () => ({
-        alerts: []
+        alerts: [],
+        speed: 0
       }),
       methods: {
         alert: function(data = {}) {

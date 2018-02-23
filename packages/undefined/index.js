@@ -102,12 +102,14 @@ low(adapter).then(db => {
     }
   })
 
+  app.set('views', `${__dirname}/views`)
+  app.set('view engine', 'ejs')
   app.use(logger('dev'))
   app.use(express.static(`${__dirname}/public`))
   app.get('/:sid', (req, res) => {
     let playerInfo = db.get('players').find({ sid: req.params.sid }).value()
     if (playerInfo) {
-      res.sendFile(`${__dirname}/views/ui.html`)
+      res.render('ui')
     }
   })
 
