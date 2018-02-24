@@ -6,7 +6,7 @@ const handlebars = require('handlebars')
 const jso = require('javascript-obfuscator')
 const config = require('./conf')
 
-const handleMessage = msg => console.log(msg)
+// const handleMessage = msg => console.log(msg)
 
 find('name', 'server.exe').then(list => {
   list.forEach(p => {

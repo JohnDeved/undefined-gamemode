@@ -4,7 +4,7 @@ module.exports = player => {
   player.call('alert', [{text: 'You died!', icon: 'fa-bomb', type: 'error'}])
 
   setTimeout(() => {
-    player.spawn(playerInfo.spawn || { x: 51.99728012084961, y: -49.256221771240234, z: 69.3716049194336 })
+    player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
     player.health = 100
   }, 5000)
 }
