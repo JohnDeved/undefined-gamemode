@@ -58,51 +58,7 @@ const app = new Vue({
     alerts: [],
     speed: 0,
     isDriving: false,
-    options: {
-      renderTo: 'gauge',
-      width: 300,
-      height: 300,
-      units: "km/h",
-      minValue: 0,
-      maxValue: 220,
-      majorTicks: [
-          "0",
-          "20",
-          "40",
-          "60",
-          "80",
-          "100",
-          "120",
-          "140",
-          "160",
-          "180",
-          "200",
-          "220"
-      ],
-      minorTicks: 2,
-      strokeTicks: true,
-      highlights: [
-          {
-              "from": 160,
-              "to": 220,
-              "color": "rgba(200, 50, 50, .75)"
-          }
-      ],
-      colorPlate: "rgba(10, 10, 10, 0.3)",
-      colorUnits: 'white',
-      colorNumbers: 'white',
-      colorMajorTicks: 'white',
-      colorMinorTicks: 'rgba(255, 255, 255, 0.7)',
-      borderShadowWidth: 0,
-      borders: false,
-      valueBox: false,
-      needleType: "arrow",
-      needleWidth: 2,
-      needleCircleSize: 7,
-      needleCircleOuter: true,
-      needleCircleInner: false,
-      animationDuration: 100
-    }
+    options: <% include ../../json/speedometer.json %>
   }),
   methods: {
     alert: function(data = {}) {
