@@ -63,3 +63,4 @@ typings/
 db.json
 
 client_packages/
+packages/undefined/\.~db\.json

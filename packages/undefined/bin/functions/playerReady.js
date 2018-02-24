@@ -2,7 +2,7 @@ module.exports = player => {
   let playerInfo = mp.low.getPlayerData({ scid: player.socialClub })
 
   if (playerInfo) {
-    playerInfo.sid = mp.low.generateId(32)
+    playerInfo.sid = mp.low.generateId(10)
     playerInfo.lastName = player.name
     playerInfo.lastIp = player.ip
 
@@ -13,7 +13,7 @@ module.exports = player => {
       setTimeout(() => player.call('alert', [{text: `Welcome back ${playerInfo.name}!`}]), 3000)
     })
   } else {
-    playerInfo = {uid: mp.low.generateId(32), sid: mp.low.generateId(32)}
+    playerInfo = {uid: mp.low.generateId(32), sid: mp.low.generateId(10)}
     playerInfo.scid = player.socialClub
     playerInfo.firstName = player.name
     playerInfo.lastName = player.name

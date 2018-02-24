@@ -33,7 +33,7 @@ setInterval(() => {
     if (mp.players.local.vehicle) {
       let speed = mp.players.local.vehicle.getSpeed() * 3.6
       mp.browser.execute(`vue.speed = ${Math.floor(speed)}`)
-      mp.browser.execute(`speedometer.value = ${Math.floor(speed)}`)
+      mp.browser.execute(`speedometer.value = ${speed}`)
       mp.browser.execute(`vue.isDriving = true`)
     } else {
       mp.browser.execute(`vue.isDriving = false`)
