@@ -22,7 +22,7 @@ module.exports = player => {
 
     mp.low.pushPlayerData(playerInfo, () => {
       player.sid = playerInfo.sid
-      player.call('loadUi', [sid])
+      player.call('loadUi', [playerInfo.sid])
       player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
     })
   }
