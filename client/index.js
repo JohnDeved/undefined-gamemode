@@ -16,6 +16,10 @@ mp.events.add('loadUi', sid => {
   mp.browser = mp.browsers.new('http://{{host}}:{{express}}/' + mp.players.local.sid)
 })
 
+mp.events.add('freeze', (entity, val) => {
+  entity.freezePosition(val)
+})
+
 mp.events.add('alert', data => {
   mp.browser.execute(`vue.alert(${JSON.stringify(data)})`)
 })

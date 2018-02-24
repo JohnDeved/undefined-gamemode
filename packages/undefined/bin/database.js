@@ -9,7 +9,7 @@ class Database {
     this.pushShopCarData = (value, callback) => this.db.get('shopCars').push(value).write().then(callback)
     this.getShopCarData = search => this.db.get('shopCars').find(search).value()
     this.setShopCarData = (search, value, callback) => db.get('shopCars').find(search).set(value).write().then(callback)
-    this.getAllShopCarData = () => this.db.get('shopCars').value()
+    this.getAllShopCars = () => this.db.get('shopCars').value()
 
     this.pushPlayerData = (value, callback) => this.db.get('players').push(value).write().then(callback)
     this.getPlayerData = search => this.db.get('players').find(search).value()

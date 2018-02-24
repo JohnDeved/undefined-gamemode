@@ -26,4 +26,8 @@ module.exports = player => {
       player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
     })
   }
+
+  mp.ActiveShopCars.forEach(car => {
+    player.call('freeze', [car, true])
+  })
 }
