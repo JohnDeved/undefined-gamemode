@@ -9,23 +9,21 @@ module.exports = player => {
     mp.low.setPlayerData({ uid: player.uid }, playerInfo, () => {
       player.sid = playerInfo.sid
       player.call('loadUi', [playerInfo.sid])
+      player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
       setTimeout(() => player.call('alert', [{text: `Welcome back ${playerInfo.name}!`}]), 3000)
     })
   } else {
-    let uid = mp.low.generateId(32)
-    let sid = mp.low.generateId(32)
+    playerInfo = {uid: mp.low.generateId(32), sid: mp.low.generateId(32)}
+    playerInfo.scid = player.socialClub
+    playerInfo.firstName = player.name
+    playerInfo.lastName = player.name
+    playerInfo.firstIp = player.ip
+    playerInfo.lastIp = player.ip
 
-    mp.low.db.get('players').push({
-      uid: uid,
-      sid: sid,
-      scid: player.socialClub,
-      firstName: player.name,
-      lastName: player.name,
-      firstIp: player.ip,
-      lastIp: player.ip
-    }).write().then(() => {
+    mp.low.pushPlayerData(playerInfo, () => {
       player.sid = playerInfo.sid
       player.call('loadUi', [sid])
+      player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
     })
   }
 }

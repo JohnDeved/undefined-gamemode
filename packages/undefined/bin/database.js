@@ -5,8 +5,11 @@ class Database {
   constructor (db) {
     this.db = db
     this.defaults = this.db.defaults({ players: [] }).write()
+
+    this.pushPlayerData = (value, callback) => mp.low.db.get('players').push(value).write().then(callback)
     this.getPlayerData = search => this.db.get('players').find(search).value()
     this.setPlayerData = (search, value, callback) => db.get('players').find(search).set(value).write().then(callback)
+
     this.generateId = num => base64url(crypto.randomBytes(num))
   }
 }
