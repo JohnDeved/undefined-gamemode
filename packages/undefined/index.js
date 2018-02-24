@@ -14,6 +14,8 @@ const adapter = new FileAsync(`${__dirname}/db.json`)
 
 lowdb(adapter).then(db => {
   mp.low = require('./bin/database.js')(db)
+  mp.fnc = require('./functions/functions.js')
+  require('./bin/init.js')()
   require('./bin/events.js')()
   require('./bin/express.js')()
 })
