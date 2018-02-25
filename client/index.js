@@ -3,10 +3,13 @@ const pushRoute = route => {
     mp.game.graphics.transitionToBlurred(100)
     mp.browser.execute(`vue.$router.push('${route}')`)
     mp.gui.cursor.show(true, true)
+    mp.browser.route = route
   } else {
+    if (mp.browser.route !== route) { return }
     mp.game.graphics.transitionFromBlurred(100)
     mp.browser.execute(`vue.$router.push('/')`)
     mp.gui.cursor.show(false, false)
+    mp.browser.route = '/'
   }
 }
 
@@ -14,6 +17,7 @@ mp.events.add('loadUi', sid => {
   mp.players.local.sid = sid
   mp.gui.chat.push('playerObj sid: !{Green}' + mp.players.local.sid)
   mp.browser = mp.browsers.new('http://{{host}}:{{express}}/' + mp.players.local.sid)
+  mp.browser.route = '/'
 })
 
 mp.events.add('showDialog', dialog => {
