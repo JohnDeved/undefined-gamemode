@@ -4,9 +4,9 @@ module.exports = () => {
   mp.ActiveShopCars = []
 
   mp.shopCars.forEach(car => {
-    let veh = mp.vehicles.new(mp.joaat('Dominator'), car.pos)
+    let veh = mp.vehicles.new(car.model, car.pos)
+    veh.setColor(111, 0)
     veh.rotation = car.rot
-    veh.movable = false
     veh.shopId = car.id
     mp.ActiveShopCars.push(veh)
   })
