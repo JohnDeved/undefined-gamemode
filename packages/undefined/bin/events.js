@@ -7,7 +7,8 @@ module.exports = () => {
   mp.events.add('playerExitVehicle', mp.fnc.playerExitVehicle)
 
   mp.events.addCommand('car', mp.fnc.spawnCar)
-  mp.events.addCommand('setShopCar', mp.fnc.setShopCar)
+  mp.events.addCommand('setCarShop', mp.fnc.setCarShop)
+  mp.events.addCommand('refreshCarShop', mp.fnc.refreshCarShop)
   mp.events.addCommand('gun', mp.fnc.spawnGun)
   mp.events.addCommand('kill', player => { player.health = 0 })
   mp.events.addCommand('setSpawn', mp.fnc.setSpawn)

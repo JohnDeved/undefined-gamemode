@@ -22,7 +22,7 @@ find('name', 'server.exe').then(list => {
       fs.writeFile(`${__dirname}/client_packages/index.js`, data, (err) => {
         if (err) return console.error(err)
 
-        spawn('./server.exe', {stdio: 'inherit'}, console.log)
+        spawn('./server.exe', config.debugging ? ['--inspect'] : [], {stdio: 'inherit'}, console.log)
 
         // ipc.config.id = 'host'
         // ipc.serve()

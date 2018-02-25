@@ -64,5 +64,5 @@ html {
 }
 
 .cardDialog {
-  background-color: transparent !important
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }

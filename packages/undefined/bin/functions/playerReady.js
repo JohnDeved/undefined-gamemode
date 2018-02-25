@@ -27,7 +27,7 @@ module.exports = player => {
     })
   }
 
-  mp.ActiveShopCars.forEach(car => {
+  mp.activeShopCars.forEach(car => {
     player.call('freeze', [car, true])
   })
 }

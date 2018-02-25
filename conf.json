@@ -7,7 +7,8 @@
 	"host": "127.0.0.1",
 	"express": 22108,
 	"port": 22005,
-	"obfuscate": true,
+	"obfuscate": false,
+	"debugging": false,
 	"undefined": {
 		"defaultSpawn": { "x": 51.99728012084961, "y": -49.256221771240234, "z": 69.3716049194336 }
 	}
