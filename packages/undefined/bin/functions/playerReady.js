@@ -29,7 +29,9 @@ module.exports = player => {
     })
   }
 
-  for (var car in mp.activeShopCars) {
-    player.call('freeze', [mp.activeShopCars[car], true])
-  }
+  setTimeout(() => {
+    for (var car in mp.activeShopCars) {
+      player.call('freeze', [mp.activeShopCars[car], true])
+    }
+  }, 1000)
 }
