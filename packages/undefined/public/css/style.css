@@ -62,3 +62,7 @@ html {
   right: 0;
   margin: 10px;
 }
+
+.cardDialog {
+  background-color: transparent !important
+}

@@ -1,13 +1,13 @@
 <script type="text/x-template" id="dialog-template">
   <v-layout class="fullscreen darken" column align-center justify-center>
-    <v-card>
+    <v-card class="cardDialog elevation-0">
       <v-card-title primary-title>
         <h1 class="headline mb-0">{{ dialog.title }}</h1>
       </v-card-title>
       <v-card-text v-html="dialog.text"></v-card-text>
       <v-card-actions>
-        <v-btn color="green" flat @click="mp.trigger('dialogResponse', true)">{{ dialog.yes }}</v-btn>
-        <v-btn color="red" flat @click="mp.trigger('dialogResponse', false)">{{ dialog.no }}</v-btn>
+        <v-btn color="green" outline @click="mp.trigger('dialogResponse', true)">{{ dialog.yes }}</v-btn>
+        <v-btn color="red" outline @click="mp.trigger('dialogResponse', false)">{{ dialog.no }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-layout>

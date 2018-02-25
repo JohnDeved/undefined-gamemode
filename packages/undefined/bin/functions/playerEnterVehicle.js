@@ -1,9 +1,9 @@
 module.exports = (player, vehicle, seat) => {
   if (vehicle.shopId) {
-    // const name = mp.vehicleInfo[vehicle.model].displayName
+    const name = mp.vehicleInfo[vehicle.model].displayName
     const dialog = {
       title: 'Example Car Shop',
-      text: `Do you wanna Buy this ${vehicle.model}?<br>[ShopId: ${vehicle.shopId}]`,
+      text: `Do you wanna Buy this ${name}?`,
       yes: 'yes ($30,000)',
       no: 'cancel'
     }
