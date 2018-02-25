@@ -27,14 +27,17 @@ mp.events.add('showDialog', dialog => {
       this.text = dialog.text || 'example text'
       this.yes = dialog.yes || 'ok'
       this.no = dialog.no || 'cancel'
+      this.yesCallback = dialog.yesCallback || ''
+      this.noCallback = dialog.noCallback || ''
     }
   }
   mp.browser.execute(`dialog = ${JSON.stringify(new Dialog(dialog))}`)
   pushRoute('/dialog')
 })
 
-mp.events.add('dialogResponse', respones => {
+mp.events.add('dialogResponse', callback => {
   pushRoute('/dialog')
+  mp.events.callRemote(callback)
 })
 
 mp.events.add('freeze', (entity, val) => {

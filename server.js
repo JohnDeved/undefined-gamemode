@@ -1,5 +1,5 @@
 const fs = require('fs')
-const ipc = require('node-ipc')
+// const ipc = require('node-ipc')
 const spawn = require('child_process').spawn
 const find = require('find-process')
 const handlebars = require('handlebars')

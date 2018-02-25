@@ -6,8 +6,8 @@
       </v-card-title>
       <v-card-text v-html="dialog.text"></v-card-text>
       <v-card-actions>
-        <v-btn color="green" outline @click="mp.trigger('dialogResponse', true)">{{ dialog.yes }}</v-btn>
-        <v-btn color="red" outline @click="mp.trigger('dialogResponse', false)">{{ dialog.no }}</v-btn>
+        <v-btn color="green" outline @click="mp.trigger('dialogResponse', dialog.yesCallback)">{{ dialog.yes }}</v-btn>
+        <v-btn color="red" outline @click="mp.trigger('dialogResponse', dialog.noCallback)">{{ dialog.no }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-layout>

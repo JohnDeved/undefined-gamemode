@@ -5,7 +5,8 @@ module.exports = (player, vehicle, seat) => {
       title: 'Example Car Shop',
       text: `Do you wanna Buy this ${name}?`,
       yes: 'yes ($30,000)',
-      no: 'cancel'
+      no: 'cancel',
+      yesCallback: 'buyCarShop'
     }
     player.call('showDialog', [dialog])
     vehicle.locked = true
