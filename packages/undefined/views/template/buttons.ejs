@@ -1,12 +1,12 @@
 <script type="text/x-template" id="buttons-template">
   <v-layout class="fullscreen darken" column align-center justify-center>
     <div>
-      <v-btn outline color="success" @click="vue.alert({type: 'success'})">Success</v-btn>
-      <v-btn outline color="error" @click="vue.alert({type: 'error'})">Error</v-btn>
-      <v-btn outline color="warning" @click="vue.alert({type: 'warning'})">Warning</v-btn>
-      <v-btn outline color="info" @click="vue.alert()">Info</v-btn>
-      <v-btn outline color="info" @click="vue.alert({icon: 'new_releases', color: 'teal'})">Custom</v-btn>
-      <v-btn outline color="info" @click="vue.alert({icon: 'lock', color: 'orange', text: 'you have locked your car!'})">Custom</v-btn>
+      <v-btn outline color="info" @click="mp.trigger('callRemote', 'destroyCar')">Delete Vehicle</v-btn>
+      <v-btn outline color="success" @click="vue.alert({type: 'success'})">Test Success</v-btn>
+      <v-btn outline color="error" @click="vue.alert({type: 'error'})">Test Error</v-btn>
+      <v-btn outline color="warning" @click="vue.alert({type: 'warning'})">Test Warning</v-btn>
+      <v-btn outline color="info" @click="vue.alert()">Test Info</v-btn>
+      <v-btn outline color="info" @click="vue.alert({icon: 'new_releases', color: 'teal'})">Test Custom</v-btn>
       <v-btn outline color="info" href="https://jsemu3.github.io/gba/launcher.html#pokemonsapphire">pokemon</v-btn>
       <v-btn outline color="info" href="https://google.com">google</v-btn>
     </div>

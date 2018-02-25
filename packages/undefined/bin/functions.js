@@ -14,6 +14,7 @@ class Functions {
     this.playerStartEnterVehicle = require('./functions/playerStartEnterVehicle.js')
     this.buyCarShop = require('./functions/buyCarShop.js')
     this.destroyCar = require('./functions/destroyCar.js')
+    this.unlockCar = require('./functions/unlockCar.js')
   }
 }
 

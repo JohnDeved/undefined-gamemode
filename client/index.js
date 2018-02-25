@@ -44,6 +44,10 @@ mp.events.add('freeze', (entity, val) => {
   entity.freezePosition(val)
 })
 
+mp.events.add('callRemote', event => {
+  mp.events.callRemote(event)
+})
+
 mp.events.add('alert', data => {
   mp.browser.execute(`vue.alert(${JSON.stringify(data)})`)
 })
@@ -55,6 +59,7 @@ mp.events.add('server_spawnCar', car => {
 mp.keys.bind(113, true, () => pushRoute('/buttons'))
 mp.keys.bind(114, true, () => pushRoute('/cars'))
 mp.keys.bind(116, true, () => mp.browser.reload(false))
+mp.keys.bind(85, true, () => mp.events.callRemote('unlockCar'))
 
 setInterval(() => {
   if (mp.browser) {
@@ -72,3 +77,4 @@ setInterval(() => {
 if (mp.gui.cursor.visible) {
   mp.gui.cursor.show(false, false)
 }
+mp.game.graphics.transitionFromBlurred(100)

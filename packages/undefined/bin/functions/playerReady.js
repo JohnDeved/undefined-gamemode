@@ -8,6 +8,7 @@ module.exports = player => {
 
     mp.low.setPlayerData({ uid: player.uid }, playerInfo, () => {
       player.sid = playerInfo.sid
+      player.uid = playerInfo.uid
       player.call('loadUi', [playerInfo.sid])
       player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
       setTimeout(() => player.call('alert', [{text: `Welcome back ${playerInfo.name}!`}]), 3000)
@@ -22,6 +23,7 @@ module.exports = player => {
 
     mp.low.pushPlayerData(playerInfo, () => {
       player.sid = playerInfo.sid
+      player.uid = playerInfo.uid
       player.call('loadUi', [playerInfo.sid])
       player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
     })
