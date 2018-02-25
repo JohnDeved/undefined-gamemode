@@ -9,6 +9,15 @@ const router = new VueRouter({
     }
   }, 
   {
+    path: '/dialog',
+    component: {
+      template: '#dialog-template',
+      data: () => ({
+        dialog: dialog
+      }),
+    },
+  }, 
+  {
     path: '/cars',
     component: {
       template: '#cars-template',
@@ -40,9 +49,6 @@ Vue.component('speedometer', {
       type: Object,
       default: () => ({})
     }
-  },
-  data () {
-    return {}
   },
   mounted () {
     if (this.value) this.options.value = this.value

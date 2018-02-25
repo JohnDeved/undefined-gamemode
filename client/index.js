@@ -16,6 +16,19 @@ mp.events.add('loadUi', sid => {
   mp.browser = mp.browsers.new('http://{{host}}:{{express}}/' + mp.players.local.sid)
 })
 
+mp.events.add('showDialog', dialog => {
+  class Dialog {
+    constructor () {
+      this.title = dialog.title || 'example'
+      this.text = dialog.text || 'example text'
+      this.yes = dialog.yes || 'ok'
+      this.no = dialog.no || 'cancel'
+    }
+  }
+  mp.browser.execute(`dialog = ${JSON.stringify(new Dialog(dialog))}`)
+  pushRoute('/dialog')
+})
+
 mp.events.add('freeze', (entity, val) => {
   entity.freezePosition(val)
 })

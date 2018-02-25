@@ -1,4 +1,5 @@
 module.exports = () => {
+  mp.vehicleInfo = require('../json/vehicleInfo.nolist.json')
   mp.shopCars = mp.low.getAllShopCars()
   mp.ActiveShopCars = []
 

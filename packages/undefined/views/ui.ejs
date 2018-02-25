@@ -38,9 +38,15 @@
   <script src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.4/radial/gauge.min.js"></script>
 
   <script>
+    let dialog = {
+      title: 'example',
+      text: 'example text',
+      yes: 'ok',
+      no: 'cancel'
+    }
     const vehicles = <% include ../json/vehicleInfo.nolist.json %>
     const vehiclesArray = []
-    const vehicleClasses = ['Compacts','Sedans','SUVs','Coupes','Muscle','Sports Classics','Sports','Super','Motorcycles','Off-Road','Industrial','Utility','Vans','Cycles','Boats','Helicopters','Planes','Service','Emergency','Military','Commercial','Trains']
+    const vehicleClasses = ['Compacts','Sedans','SUVs','Coupes','Muscle','Sports Classics','Sports','Super','Motorcycles','Off-Road','Industrial','Utility','Vans','Cycles','Boats','Helicopters','Planes','Service','Emergency','Military','Commercial','Trains']    
     for (var key in vehicles) {
       let veh = vehicles[key]
       veh.maxSpeed = Math.floor(veh.maxSpeed * 3.6)
@@ -50,6 +56,7 @@
   </script>
 
   <% include template/buttons %>
+  <% include template/dialog %>
   <% include template/cars %>
   <% include template/vue %>  
 </body>
