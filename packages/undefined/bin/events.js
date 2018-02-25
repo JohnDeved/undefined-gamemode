@@ -6,6 +6,7 @@ module.exports = () => {
   mp.events.add('playerEnterVehicle', mp.fnc.playerEnterVehicle)
   mp.events.add('playerExitVehicle', mp.fnc.playerExitVehicle)
   mp.events.add('playerStartExitVehicle', mp.fnc.playerStartExitVehicle)
+  mp.events.add('playerStartEnterVehicle', mp.fnc.playerStartEnterVehicle)
   mp.events.add('buyCarShop', mp.fnc.buyCarShop)
 
   mp.events.addCommand('car', mp.fnc.spawnCar)
