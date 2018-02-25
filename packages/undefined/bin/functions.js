@@ -13,6 +13,7 @@ class Functions {
     this.playerStartExitVehicle = require('./functions/playerStartExitVehicle.js')
     this.playerStartEnterVehicle = require('./functions/playerStartEnterVehicle.js')
     this.buyCarShop = require('./functions/buyCarShop.js')
+    this.destroyCar = require('./functions/destroyCar.js')
   }
 }
 
