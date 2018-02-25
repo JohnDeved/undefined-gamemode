@@ -33,6 +33,10 @@ mp.events.add('showDialog', dialog => {
   pushRoute('/dialog')
 })
 
+mp.events.add('dialogResponse', respones => {
+  pushRoute('/dialog')
+})
+
 mp.events.add('freeze', (entity, val) => {
   entity.freezePosition(val)
 })
@@ -61,3 +65,7 @@ setInterval(() => {
     }
   }
 }, 50)
+
+if (mp.gui.cursor.visible) {
+  mp.gui.cursor.show(false, false)
+}

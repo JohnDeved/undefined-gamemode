@@ -1,6 +1,13 @@
 module.exports = (player, vehicle, seat) => {
   if (vehicle.shopId) {
-    console.log(player.name, 'entered shop vehicle with shop id', vehicle.shopId)
-    player.call('showDialog', [{text: 'tester test test'}])
+    const name = mp.vehicleInfo[vehicle.model].displayName
+    const dialog = {
+      title: 'Example Car Shop',
+      text: `Do you wanna Buy this ${name}?<br>[ShopId: ${vehicle.shopId}]`,
+      yes: 'yes ($30,000)',
+      no: 'cancel'
+    }
+    player.call('showDialog', [dialog])
+    vehicle.locked = true
   }
 }
