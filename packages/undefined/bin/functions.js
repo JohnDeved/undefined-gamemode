@@ -15,6 +15,7 @@ class Functions {
     this.buyCarShop = require('./functions/buyCarShop.js')
     this.destroyCar = require('./functions/destroyCar.js')
     this.unlockCar = require('./functions/unlockCar.js')
+    this.heal = require('./functions/heal.js')
   }
 }
 

@@ -1,7 +1,8 @@
 <script type="text/x-template" id="buttons-template">
   <v-layout class="fullscreen darken" column align-center justify-center>
     <div>
-      <v-btn outline color="info" @click="mp.trigger('callRemote', 'destroyCar')">Delete Vehicle</v-btn>
+      <v-btn outline color="orange" @click="mp.trigger('callRemote', 'destroyCar')">Delete Vehicle</v-btn>
+      <v-btn outline color="purple" @click="mp.trigger('callRemote', 'heal')">Heal</v-btn>
       <v-btn outline color="success" @click="vue.alert({type: 'success'})">Test Success</v-btn>
       <v-btn outline color="error" @click="vue.alert({type: 'error'})">Test Error</v-btn>
       <v-btn outline color="warning" @click="vue.alert({type: 'warning'})">Test Warning</v-btn>
