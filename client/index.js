@@ -13,6 +13,10 @@ const pushRoute = route => {
   }
 }
 
+mp.log = (...data) => {
+  mp.events.callRemote('log', JSON.stringify(data))
+}
+
 mp.events.add('loadUi', sid => {
   mp.players.local.sid = sid
   mp.gui.chat.push('playerObj sid: !{Green}' + mp.players.local.sid)
