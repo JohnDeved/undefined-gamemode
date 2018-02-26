@@ -66,3 +66,9 @@ html {
 .cardDialog {
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
+
+.box {
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}

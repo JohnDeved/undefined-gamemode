@@ -5,6 +5,7 @@ class Functions {
     this.setSpawn = require('./functions/setSpawn.js')
     this.setCarShop = require('./functions/setCarShop.js')
     this.refreshCarShop = require('./functions/refreshCarShop.js')
+    this.removeCarShop = require('./functions/removeCarShop.js')
     this.playerDeath = require('./functions/playerDeath.js')
     this.playerReady = require('./functions/playerReady.js')
     this.playerChat = require('./functions/playerChat.js')
@@ -17,6 +18,7 @@ class Functions {
     this.unlockCar = require('./functions/unlockCar.js')
     this.heal = require('./functions/heal.js')
     this.log = require('./functions/log.js')
+    this.kick = require('./functions/kick.js')
   }
 }
 
