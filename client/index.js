@@ -1,11 +1,11 @@
-const pushRoute = route => {
-  if (!mp.gui.cursor.visible) {
+const pushRoute = (route, esc) => {
+  if (!mp.gui.cursor.visible && !esc) {
     mp.game.graphics.transitionToBlurred(100)
     mp.browser.execute(`vue.$router.push('${route}')`)
     mp.gui.cursor.show(true, true)
     mp.browser.route = route
   } else {
-    if (mp.browser.route !== route) { return }
+    if (mp.browser.route !== route && !esc) { return }
     mp.game.graphics.transitionFromBlurred(100)
     mp.browser.execute(`vue.$router.push('/')`)
     mp.gui.cursor.show(false, false)
@@ -65,6 +65,7 @@ mp.keys.bind(114, true, () => pushRoute('/cars'))
 mp.keys.bind(116, true, () => mp.browser.reload(false))
 mp.keys.bind(117, true, () => { mp.browser.url = 'http://{{host}}:{{express}}/' + mp.players.local.sid })
 mp.keys.bind(85, true, () => mp.events.callRemote('unlockCar'))
+mp.keys.bind(27, true, () => pushRoute('/', true))
 
 setInterval(() => {
   if (mp.browser) {
