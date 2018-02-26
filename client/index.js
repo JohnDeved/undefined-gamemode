@@ -63,9 +63,15 @@ mp.events.add('server_spawnCar', car => {
 mp.keys.bind(113, true, () => pushRoute('/buttons'))
 mp.keys.bind(114, true, () => pushRoute('/cars'))
 mp.keys.bind(116, true, () => mp.browser.reload(false))
-mp.keys.bind(117, true, () => { mp.browser.url = 'http://{{host}}:{{express}}/' + mp.players.local.sid })
 mp.keys.bind(85, true, () => mp.events.callRemote('unlockCar'))
 mp.keys.bind(27, true, () => pushRoute('/', true))
+mp.keys.bind(117, true, () => {
+  mp.browser.url = 'http://{{host}}:{{express}}/' + mp.players.local.sid
+  mp.game.graphics.transitionFromBlurred(100)
+  mp.browser.execute(`vue.$router.push('/')`)
+  mp.gui.cursor.show(false, false)
+  mp.browser.route = '/'
+})
 
 setInterval(() => {
   if (mp.browser) {
