@@ -1,13 +1,10 @@
 const fs = require('fs')
-// const ipc = require('node-ipc')
 const program = require('commander')
 const spawn = require('child_process').spawn
 const find = require('find-process')
 const handlebars = require('handlebars')
 const jso = require('javascript-obfuscator')
 const config = require('./conf')
-
-// const handleMessage = msg => console.log(msg)
 
 program.option('-d, --debug', 'Enable Debug').parse(process.argv)
 let debugging = program.debug || config.debugging
@@ -27,11 +24,6 @@ find('name', 'server.exe').then(list => {
         if (err) return console.error(err)
 
         spawn('./server.exe', debugging ? ['--inspect'] : [], {stdio: 'inherit'}, console.log)
-
-        // ipc.config.id = 'host'
-        // ipc.serve()
-        // ipc.server.start()
-        // ipc.server.on('spawnMessage', handleMessage)
       })
     })
   })
