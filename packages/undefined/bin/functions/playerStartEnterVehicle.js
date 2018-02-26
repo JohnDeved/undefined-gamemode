@@ -1,5 +1,5 @@
 module.exports = (player, vehicle, seat) => {
-  console.log(vehicle.getOccupant(seat))
+  // console.log(vehicle.getOccupant(seat))
 
   if (vehicle.locked) {
     if (vehicle.owner === player.uid) {

@@ -11,7 +11,7 @@ module.exports = () => {
   mp.events.add('destroyCar', mp.fnc.destroyCar)
   mp.events.add('unlockCar', mp.fnc.unlockCar)
   mp.events.add('heal', mp.fnc.heal)
-  mp.events.add('kill', mp.fnc.kill)
+  mp.events.add('kill', player => { player.health = 0 })
   mp.events.add('log', mp.fnc.log)
   mp.events.add('setCarShop', mp.fnc.setCarShop)
   mp.events.add('refreshCarShop', mp.fnc.refreshCarShop)
