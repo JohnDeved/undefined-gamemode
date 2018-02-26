@@ -1,25 +1,13 @@
-class Functions {
-  constructor () {
-    this.spawnCar = require('./functions/spawnCar.js')
-    this.spawnGun = require('./functions/spawnGun.js')
-    this.setSpawn = require('./functions/setSpawn.js')
-    this.setCarShop = require('./functions/setCarShop.js')
-    this.refreshCarShop = require('./functions/refreshCarShop.js')
-    this.removeCarShop = require('./functions/removeCarShop.js')
-    this.playerDeath = require('./functions/playerDeath.js')
-    this.playerReady = require('./functions/playerReady.js')
-    this.playerChat = require('./functions/playerChat.js')
-    this.playerEnterVehicle = require('./functions/playerEnterVehicle.js')
-    this.playerExitVehicle = require('./functions/playerExitVehicle.js')
-    this.playerStartExitVehicle = require('./functions/playerStartExitVehicle.js')
-    this.playerStartEnterVehicle = require('./functions/playerStartEnterVehicle.js')
-    this.buyCarShop = require('./functions/buyCarShop.js')
-    this.destroyCar = require('./functions/destroyCar.js')
-    this.unlockCar = require('./functions/unlockCar.js')
-    this.heal = require('./functions/heal.js')
-    this.log = require('./functions/log.js')
-    this.kick = require('./functions/kick.js')
-  }
-}
+const fs = require('fs')
 
-module.exports = new Functions()
+module.exports = new Promise(resolve => {
+  fs.readdir(`${__dirname}/functions/`, async (err, files) => {
+    if (err) console.error(err)
+    let fnc = {}
+    await files.forEach(file => {
+      let [, name] = file.match(/(.+)\.js\b/)
+      fnc[name] = require(`${__dirname}/functions/${file}`)
+    })
+    resolve(fnc)
+  })
+})

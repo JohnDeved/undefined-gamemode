@@ -13,9 +13,11 @@ const adapter = new FileAsync(`${__dirname}/db.json`)
 // })
 
 lowdb(adapter).then(db => {
-  mp.low = require('./bin/database.js')(db)
-  mp.fnc = require('./bin/functions.js')
-  require('./bin/init.js')()
-  require('./bin/events.js')()
-  require('./bin/express.js')()
+  require('./bin/functions.js').then(fnc => {
+    mp.fnc = fnc
+    mp.low = require('./bin/database.js')(db)
+    require('./bin/init.js')()
+    require('./bin/events.js')()
+    require('./bin/express.js')()
+  })
 })
