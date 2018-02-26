@@ -14,7 +14,7 @@ find('name', 'server.exe').then(list => {
   })
 
   fs.unlink(`${__dirname}/client_packages/.listcache`, (err) => {
-    if (err) console.error(err)
+    if (err) console.info('.listcache not found')
     fs.readFile(`${__dirname}/client/index.js`, (err, data) => {
       if (err) return console.error(err)
       data = handlebars.compile(data.toString())(config)
