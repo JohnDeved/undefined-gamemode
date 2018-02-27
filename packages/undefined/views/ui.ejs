@@ -15,7 +15,10 @@
   <div id="app">
     <v-app id="inspire" dark>
       <v-content>
-        <speedometer class="speedometer" v-if="isDriving" :options="options"></speedometer>
+        <div v-if="isDriving" >
+          {{gear}} | {{rpm}}
+          <speedometer class="speedometer" :options="options"></speedometer>
+        </div>
         <div class="alerts">
           <div v-for="alert in alerts">
             <div :id="alert.id">

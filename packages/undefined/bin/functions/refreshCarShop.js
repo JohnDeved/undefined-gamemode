@@ -7,7 +7,7 @@ module.exports = player => {
   mp.shopCars.forEach(car => {
     if (!mp.activeShopCars[car.id]) {
       let veh = mp.vehicles.new(car.model, car.pos)
-      veh.setColor(111, 0)
+      veh.setColor(111, 111)
       veh.rotation = car.rot
       veh.shopId = car.id
       mp.activeShopCars[car.id] = veh
