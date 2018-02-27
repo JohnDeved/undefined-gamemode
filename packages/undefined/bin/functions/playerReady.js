@@ -11,7 +11,7 @@ module.exports = player => {
     player.uid = playerInfo.uid
     player.call('loadUi', [playerInfo.sid])
     player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
-    setTimeout(() => player.call('alert', [{text: `Welcome back ${playerInfo.name}!`}]), 3000)
+    setTimeout(() => player.call('alert', [{text: `Welcome back ${player.name}!`}]), 3000)
   } else {
     playerInfo = {uid: mp.loki.generateId(32), sid: mp.loki.generateId(10)}
     playerInfo.scid = player.socialClub
