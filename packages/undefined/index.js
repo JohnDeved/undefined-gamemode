@@ -1,8 +1,8 @@
-const loki = require('lokijs')
-const lfsa = require('../../modules/loki-fs-structured-adapter.js')
+const Loki = require('lokijs')
+const Lfsa = require('../../modules/loki-fs-structured-adapter.js')
 
-const adapter = new lfsa()
-const db = new loki('./db/undefined.db', {
+const adapter = new Lfsa()
+const db = new Loki('./db/undefined.db', {
   adapter: adapter,
   autoload: true,
   autoloadCallback: databaseInitialize,
