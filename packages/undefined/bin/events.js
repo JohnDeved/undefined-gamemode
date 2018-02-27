@@ -1,26 +1,30 @@
 module.exports = () => {
-  mp.events.add('spawnCar', mp.fnc.spawnCar)
-  mp.events.add('playerDeath', mp.fnc.playerDeath)
-  mp.events.add('playerReady', mp.fnc.playerReady)
-  mp.events.add('playerChat', mp.fnc.playerChat)
-  mp.events.add('playerEnterVehicle', mp.fnc.playerEnterVehicle)
-  mp.events.add('playerExitVehicle', mp.fnc.playerExitVehicle)
-  mp.events.add('playerStartExitVehicle', mp.fnc.playerStartExitVehicle)
-  mp.events.add('playerStartEnterVehicle', mp.fnc.playerStartEnterVehicle)
-  mp.events.add('buyCarShop', mp.fnc.buyCarShop)
-  mp.events.add('destroyCar', mp.fnc.destroyCar)
-  mp.events.add('unlockCar', mp.fnc.unlockCar)
-  mp.events.add('heal', mp.fnc.heal)
-  mp.events.add('kill', player => { player.health = 0 })
-  mp.events.add('log', mp.fnc.log)
-  mp.events.add('setCarShop', mp.fnc.setCarShop)
-  mp.events.add('refreshCarShop', mp.fnc.refreshCarShop)
-  mp.events.add('removeCarShop', mp.fnc.removeCarShop)
-  mp.events.add('setSpawn', mp.fnc.setSpawn)
-  mp.events.add('kick', mp.fnc.kick)
+  mp.events.add({
+    'spawnCar': mp.fnc.spawnCar,
+    'playerDeath': mp.fnc.playerDeath,
+    'playerReady': mp.fnc.playerReady,
+    'playerChat': mp.fnc.playerChat,
+    'playerEnterVehicle': mp.fnc.playerEnterVehicle,
+    'playerExitVehicle': mp.fnc.playerExitVehicle,
+    'playerStartExitVehicle': mp.fnc.playerStartExitVehicle,
+    'playerStartEnterVehicle': mp.fnc.playerStartEnterVehicle,
+    'buyCarShop': mp.fnc.buyCarShop,
+    'destroyCar': mp.fnc.destroyCar,
+    'unlockCar': mp.fnc.unlockCar,
+    'heal': mp.fnc.heal,
+    'kill': player => { player.health = 0 },
+    'log': mp.fnc.log,
+    'setCarShop': mp.fnc.setCarShop,
+    'refreshCarShop': mp.fnc.refreshCarShop,
+    'removeCarShop': mp.fnc.removeCarShop,
+    'setSpawn': mp.fnc.setSpawn,
+    'kick': mp.fnc.kick
+  })
 
-  mp.events.addCommand('car', mp.fnc.spawnCar)
-  mp.events.addCommand('gun', mp.fnc.spawnGun)
-  mp.events.addCommand('kill', player => { player.health = 0 })
-  mp.events.addCommand('heal', mp.fnc.heal)
+  mp.events.addCommand({
+    'car': mp.fnc.spawnCar,
+    'gun': mp.fnc.spawnGun,
+    'kill': player => { player.health = 0 },
+    'heal': mp.fnc.heal
+  })
 }
