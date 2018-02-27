@@ -8,7 +8,7 @@ module.exports = () => {
   app.use(logger('dev'))
   app.use(express.static(`${__dirname}/..//public`))
   app.get('/:sid', (req, res) => {
-    let playerInfo = mp.low.getPlayerData({ sid: req.params.sid })
+    let playerInfo = mp.loki.players.findOne({ sid: req.params.sid })
     if (playerInfo) {
       res.render('ui')
     }

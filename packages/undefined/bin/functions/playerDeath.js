@@ -1,5 +1,5 @@
 module.exports = player => {
-  let playerInfo = mp.low.getPlayerData({ sid: player.sid })
+  let playerInfo = mp.loki.players.findOne({ sid: player.sid })
 
   player.call('alert', [{text: 'You died!', icon: 'fa-bomb', type: 'error'}])
 

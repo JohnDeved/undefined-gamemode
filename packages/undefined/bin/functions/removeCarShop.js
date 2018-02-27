@@ -2,7 +2,8 @@ module.exports = player => {
   if (player.vehicle) {
     if (player.vehicle.shopId) {
       let vehId = player.vehicle.shopId
-      mp.low.removeShopCarData({id: vehId})
+      let vehInfo = mp.loki.shopCars.findOne({id: vehId})
+      mp.loki.shopCars.remove(vehInfo)
       delete mp.activeShopCars[vehId]
       delete player.vehicle.shopId
       player.vehicle.destroy()

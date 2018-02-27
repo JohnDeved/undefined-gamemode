@@ -3,7 +3,7 @@ module.exports = player => {
     mp.activeShopCars = {}
   }
 
-  mp.shopCars = mp.low.getAllShopCars()
+  mp.shopCars = mp.loki.shopCars.data
   mp.shopCars.forEach(car => {
     if (!mp.activeShopCars[car.id]) {
       let veh = mp.vehicles.new(car.model, car.pos)
