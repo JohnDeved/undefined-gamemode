@@ -5,12 +5,12 @@ module.exports = new Promise(resolve => {
     if (err) console.error(err)
     let fnc = {}
     await files.forEach(file => {
-      if (/event\..+\.js\b/.test(file)) {
-        let [, name] = file.match(/event\.(.+)\.js\b/)
+      if (/^event\..+\.js$/.test(file)) {
+        let [, name] = file.match(/^event\.(.+)\.js$/)
         fnc[name] = require(`${__dirname}/functions/${file}`)
         mp.events.add(name, fnc[name])
-      } else if (/(.+)\.js\b/.test(file)) {
-        let [, name] = file.match(/(.+)\.js\b/)
+      } else if (/^(.+)\.js$/.test(file)) {
+        let [, name] = file.match(/^(.+)\.js$/)
         fnc[name] = require(`${__dirname}/functions/${file}`)
       }
     })
