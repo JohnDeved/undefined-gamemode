@@ -11,11 +11,11 @@ const db = new Loki('./db/undefined.db', {
 })
 
 function databaseInitialize () {
-  require('./bin/functions.js').then(fnc => {
+  require('./js/functions.js').then(fnc => {
     mp.fnc = fnc
-    mp.loki = require('./bin/database.js')(db)
-    require('./bin/init.js')()
-    require('./bin/events.js')()
-    require('./bin/express.js')()
+    mp.loki = require('./js/database.js')(db)
+    require('./js/init.js')()
+    require('./js/events.js')()
+    require('./js/express.js')()
   })
 }
