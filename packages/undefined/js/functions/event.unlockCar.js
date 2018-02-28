@@ -3,11 +3,11 @@ module.exports = player => {
     if (veh.locked) {
       veh.locked = false
       const name = mp.vehicleInfo[veh.model].displayName
-      player.call(player.call('alert', [{text: `You unlocked your ${name}!`, icon: 'fa-key', type: 'info'}]))
+      player.call('alert', [{text: `You unlocked your ${name}!`, icon: 'fa-key', type: 'info'}])
     } else {
       veh.locked = true
       const name = mp.vehicleInfo[veh.model].displayName
-      player.call(player.call('alert', [{text: `You locked your ${name}!`, icon: 'fa-key', type: 'info', color: 'orange'}]))
+      player.call('alert', [{text: `You locked your ${name}!`, icon: 'fa-key', type: 'info', color: 'orange'}])
     }
   }
 
@@ -16,7 +16,7 @@ module.exports = player => {
       unlock(player.vehicle)
     } else {
       const name = mp.vehicleInfo[player.vehicle.model].displayName
-      player.call(player.call('alert', [{text: `You dont have the keys for this ${name}!`, icon: 'fa-key', type: 'error'}]))
+      player.call('alert', [{text: `You dont have the keys for this ${name}!`, icon: 'fa-key', type: 'error'}])
     }
   } else {
     mp.vehicles.forEachInRange(player.position, 5, vehicle => {

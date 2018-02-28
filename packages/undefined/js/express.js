@@ -6,7 +6,7 @@ module.exports = () => {
   app.set('views', `${__dirname}/../views`)
   app.set('view engine', 'ejs')
   app.use(logger('dev'))
-  app.use(express.static(`${__dirname}/..//public`))
+  app.use(express.static(`${__dirname}/../public`))
   app.get('/:sid', (req, res) => {
     let playerInfo = mp.loki.players.findOne({ sid: req.params.sid })
     if (playerInfo) {

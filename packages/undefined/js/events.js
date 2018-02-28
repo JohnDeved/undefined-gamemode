@@ -7,6 +7,7 @@ module.exports = () => {
     'car': mp.fnc.spawnCar,
     'gun': mp.fnc.spawnGun,
     'kill': player => { player.health = 0 },
-    'heal': mp.fnc.heal
+    'heal': mp.fnc.heal,
+    'cash': mp.fnc.addMoney
   })
 }

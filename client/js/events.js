@@ -38,6 +38,10 @@ module.exports = () => {
     mp.browser.execute(`vue.alert(${JSON.stringify(data)})`)
   })
 
+  mp.events.add('browserExec', str => {
+    mp.browser.execute(str)
+  })
+
   mp.events.add('server_spawnCar', car => {
     mp.events.callRemote('spawnCar', car)
   })
