@@ -11,8 +11,7 @@ const db = new Loki('./db/undefined.db', {
 })
 
 function databaseInitialize () {
-  require('./js/functions.js').then(fnc => {
-    mp.fnc = fnc
+  require('./js/functions.js').then(() => {
     mp.loki = require('./js/database.js')(db)
     require('./js/init.js')()
     require('./js/events.js')()
