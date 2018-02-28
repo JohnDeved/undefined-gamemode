@@ -1,10 +1,10 @@
 module.exports = (player, vehicle, seat) => {
   if (seat === -1) {
-    const name = mp.vehicleInfo[vehicle.model].displayName
+    const carInfo = mp.vehicleInfo[vehicle.model]
     const dialog = {
       title: 'Example Car Shop',
-      text: `Do you wanna Buy this ${name}?`,
-      yes: `yes (${30000})`,
+      text: `Do you wanna Buy this ${carInfo.displayName}?`,
+      yes: `yes ($${carInfo.price.toLocaleString('en-EN')})`,
       no: 'cancel',
       yesCallback: 'buyCarShop',
       noCallback: 'cancelCarShop'
