@@ -7,8 +7,12 @@ const handlebars = require('handlebars')
 const jso = require('javascript-obfuscator')
 const config = require('./conf')
 
-program.option('-d, --debug', 'Enable Debug').parse(process.argv)
+program.option('-d, --debug', 'Enable Debug')
+  .option('-o, --obfuscate', 'Enable Obfuscation')
+  .parse(process.argv)
+
 let debugging = program.debug || config.debugging
+let obfuscate = program.obfuscate || config.obfuscate
 
 const compiler = webpack({
   entry: './client/index.js',
@@ -30,7 +34,7 @@ compiler.run((err, stats) => {
       fs.readFile(`${__dirname}/client/dist/bundle.js`, (err, data) => {
         if (err) return console.error(err)
         data = handlebars.compile(data.toString())(config)
-        if (config.obfuscate) { data = jso.obfuscate(data) }
+        if (obfuscate) { data = jso.obfuscate(data) }
         fs.writeFile(`${__dirname}/client_packages/index.js`, data, (err) => {
           if (err) return console.error(err)
 
