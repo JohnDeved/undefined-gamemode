@@ -9,8 +9,8 @@ module.exports = new Promise(resolve => {
         let [, name] = file.match(/^event\.(.+)\.js$/)
         mp.fnc[name] = require(`${__dirname}/functions/${file}`)
         mp.events.add(name, mp.fnc[name])
-      } else if (/^(.+)\.js$/.test(file)) {
-        let [, name] = file.match(/^(.+)\.js$/)
+      } else if (/^fnc\..+\.js$/.test(file)) {
+        let [, name] = file.match(/^fnc\.(.+)\.js$/)
         mp.fnc[name] = require(`${__dirname}/functions/${file}`)
       }
     })
