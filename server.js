@@ -17,8 +17,8 @@ let obfuscate = program.obfuscate || config.obfuscate
 const compiler = webpack({
   entry: './client/index.js',
   output: {
-    path: `${__dirname}/client/dist/`,
-    filename: 'bundle.js'
+    path: `${__dirname}/client_packages/`,
+    filename: 'index.js'
   }
 })
 
@@ -31,7 +31,7 @@ compiler.run((err, stats) => {
 
     fs.unlink(`${__dirname}/client_packages/.listcache`, (err) => {
       if (err) console.info('.listcache not found')
-      fs.readFile(`${__dirname}/client/dist/bundle.js`, (err, data) => {
+      fs.readFile(`${__dirname}/client_packages/index.js`, (err, data) => {
         if (err) return console.error(err)
         data = handlebars.compile(data.toString())(config)
         if (obfuscate) { data = jso.obfuscate(data) }
