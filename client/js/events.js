@@ -72,6 +72,21 @@ module.exports = () => {
             // mp.game.graphics.drawText(text, [pos2d.x, pos2d.y], format)
             // mp.game.graphics.drawText(`${dist}`, [pos2d.x, pos2d.y], format)
 
+            /*
+              -- undocumented 3d marker icons --
+              32: question mark
+              33: plane
+              34: helicopter
+              35: boat
+              36: (sports)car
+              37: motorcycle
+              38: bike
+              39: truck
+              40: parachute
+              41: jetpack
+              42: portal
+            */
+
             if (obj.getVariable('shopId')) {
               mp.game.graphics.drawMarker(29, // cash
                 pos3d.x, pos3d.y, pos3d.z,
