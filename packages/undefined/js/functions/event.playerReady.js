@@ -9,7 +9,7 @@ module.exports = player => {
     mp.loki.players.update(playerInfo)
     player.sid = playerInfo.sid
     player.uid = playerInfo.uid
-    player.call('loadUi', [playerInfo.sid])
+    player.call('loadUi', [playerInfo])
     player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
     setTimeout(() => {
       player.call('alert', [{text: `Welcome back ${player.name}!`}])
@@ -27,7 +27,7 @@ module.exports = player => {
     mp.loki.players.insert(playerInfo)
     player.sid = playerInfo.sid
     player.uid = playerInfo.uid
-    player.call('loadUi', [playerInfo.sid])
+    player.call('loadUi', [playerInfo])
     player.spawn(playerInfo.spawn || mp.config.undefined.defaultSpawn)
     setTimeout(() => {
       player.call('alert', [{text: `Welcome ${player.name}!`}])

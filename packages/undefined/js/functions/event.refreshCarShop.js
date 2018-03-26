@@ -10,6 +10,7 @@ module.exports = player => {
       veh.setColor(111, 111)
       veh.rotation = car.rot
       veh.shopId = car.id
+      veh.setVariable('shopId', car.id)
       mp.activeShopCars[car.id] = veh
       setTimeout(() => {
         mp.players.call('freeze', [veh, true])
