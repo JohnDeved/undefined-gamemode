@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "debug": "node server -d"
+    "debug": "node server -d",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +24,8 @@
     "morgan": "^1.9.0",
     "opn": "^5.2.0",
     "standard": "^11.0.0",
-    "webpack": "^4.0.1"
-  }
+    "webpack": "^4.0.1",
+    "snyk": "^1.103.4"
+  },
+  "snyk": true
 }
